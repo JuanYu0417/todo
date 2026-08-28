@@ -173,3 +173,52 @@ tasks.map(task => (
 <Row task={task} key={task.id} onDelete={deleteTask} />
 ))
 ```
+## Environment variables, routing and backend middleware
+### env
+By default, Windows uses port **5432** to access Postgres and Mac port **5435**.
+Install dotenv library
+```bash
+npm i dotenv --save
+```
+Install cross-env library
+```bash
+npm i cross-env --save-dev
+```
+modify scripts in package.json
+```js
+"scripts": {
+  "test": "cross-env NODE_ENV=test mocha *.test.js",
+  "dev": "cross-env NODE_ENV=development nodemon index.js"
+}
+```
+and database in index.js
+Update .gitignore
+Create another PostgreSQL database named test_todo by pgAdmin 4.
+add a test script in package.json
+```js
+"start:test": "cross-env NODE_ENV=test node index.js"
+```
+### Separation of Concerns (SoC): One responsibility per file, like as :  
+| Responsibility | File |
+|---------------|------|
+| Environment variables configuration | config.js |
+| Database connection | db.js |
+| API routes | routes/tasks.js |
+| Middleware | middleware/*.js |
+| Server startup | index.js |
+
+### Create server/helper/db.js and move the PostgreSQL pool configuration there
+```js
+import { pool } from './helper/db.js'
+```
+### Route
+Move GET,POST,DELETE endpoints from index.js to a todoRouter.js.
+```js
+const router = Router()
+```
+### add error middleware after router
+```js
+app.use((err, req, res, next)
+
+return next(err)
+```
