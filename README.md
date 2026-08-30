@@ -222,3 +222,104 @@ app.use((err, req, res, next)
 
 return next(err)
 ```
+## Authentication and authorization on backend
+Authentication verifies who the user is, while Authorization determines what the user is allowed to do.
+###  Install jsonwebtoken and bcrypt.
+```bash
+npm i jsonwebtoken bcrypt
+```
+### Add an account table to the database.
+```sql
+drop table if exists account;
+
+create table account (
+    id serial primary key,
+    email varchar(50) not null unique,
+    password varchar(255) not null
+);
+```
+### Add userRouter.js under /routes 
+```js
+import { Router } from 'express'
+import { compare, hash } from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { pool } from '../helper/db.js'
+
+const { sign } = jwt
+const router = Router()
+router.post('/signup', async (req, res, next) => {})
+```
+### Mount userRouter in server/index.js at /users.
+```js
+import userRouter from "./routes/userRouter.js"
+app.use('/users',userRouter)
+```
+### Add user management test in index.test.js
+```js
+describe("Testing user management", () => {}
+```
+Then test
+### Initialize database to make the test repeatable
+create test.js under /helper
+```js
+const initializeTestDb = async ()
+```
+import function to index.test.js
+```js
+import { initializeTestDb } from './helper/test.js'
+
+beforeEach(async () => {
+  await initializeTestDb()
+})
+```
+### Add JWT_SECRET_KEY to server/.env 
+```js
+JWT_SECRET_KEY=
+```
+### Add signin endpoint to userRouter.js
+```js
+router.post('/signin', async (req, res, next) 
+```
+### Create insertTestUser() in helper/test.js.
+```js
+import { hash } from 'bcrypt'
+const insertTestUser = async (user) => {}
+export { initializeTestDb, insertTestUser }
+```
+### Create a test-user object in index.test.js
+```js
+import {initializeTestDb,insertTestUser} from './helper/test.js'
+
+describe("Testing user management", () => {
+  const user = { email: "foo2@test.com", password: "password123" }
+  before(async () => {
+  await insertTestUser(user)
+})
+```
+### create POST /users/signin in index.test.js
+```js
+it('should log in', async () => {}
+```
+### Create helper/auth.js and add auth to todoRouter.js
+```js
+import jwt from 'jsonwebtoken'
+const { verify } = jwt
+const auth = (req, _res, next) => {}
+export { auth }
+```
+in todoRouter.js
+```js
+import { auth } from '../helper/auth.js'
+router.post('/', auth, (req, res,next) => { }
+router.delete('/tasks/:id', auth, (req, res,next) => {}
+```
+### import jwt and add getToken to test.js
+```js
+import jwt from 'jsonwebtoken'
+const getToken = (email) =>{}
+```
+### test
+```bash
+nom run start:test
+npm test
+```
