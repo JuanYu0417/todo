@@ -323,3 +323,62 @@ const getToken = (email) =>{}
 nom run start:test
 npm test
 ```
+## Authentication and authorization on the frontend
+### Install react-touter-dom
+```bash
+npm install react-router-dom
+```
+**react-router-dom** is a React library used to create multiple pages and navigation in a React web application.
+### Create Authentication.jsx and NotFound.jsx
+```jsx
+export const AuthenticationMode = object.freeze({})
+export default function Authentication({authenticationMode }) {}
+```
+```jsx
+export default function NotFound() {}
+```
+### edit main.jsx
+```jsx
+import Authentication, { AuthenticationMode } from './screens/Authentication'
+import ProtectedRoute from './components/ProtectedRoute'
+import UserProvider from './context/UserProvider'
+import { RouterProvider } from 'react-router-dom'
+import { createBrowserRouter } from "react-router-dom";
+import NotFound from "./screens/NotFound";
+
+const router = createBrowserRouter([])
+createRoot(document.getElementById('root')).render()
+```
+### Create folder context under /src  and three files
+install dotenv /todo
+```jsx
+npm i dotenv --save
+```
+then create .env /todo
+```env
+VITE_API_URL=http://localhost:3001
+```
+**UserContext.js** Creates the React Context used to share user data across components.  
+**UserProvider.js** Provides the user state and functions through the Context Provider.  
+**useUser.js** Custom hook that allows components to easily access the User Context.  
+Files:
+- ./src/context/UserContext.js
+- ./src/context/UserProvider.js
+- ./src/context/useUser.js
+### /components define ProtectedRoute.jsx
+```jsx
+export default function ProtectedRoute() {}
+```
+### import useUser to Authentication.jsx
+```jsx
+import { Link,useNavigate } from "react-router-dom"
+import { useUser } from "../context/useUser"
+export default function Authentication({authenticationMode}) {}
+```
+### import useUser to App.jsx
+```jsx
+import { useUser } from './context/useUser'
+
+const { user } = useUser()
+const headers = {headers: {Authorization: `Bearer ${user.token}`}}
+```
