@@ -382,3 +382,7 @@ import { useUser } from './context/useUser'
 const { user } = useUser()
 const headers = {headers: {Authorization: `Bearer ${user.token}`}}
 ```
+## Model-View-Controller
+creating models and controllers /server
+Create **Task.js** file in the models folder. 
+Create **TaskController.js** in the controllers folder. 
