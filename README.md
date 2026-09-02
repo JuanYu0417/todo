@@ -3,22 +3,24 @@ A simple Todo application built with React and Vite.
 
 ## Features
 
-- Add a new task
-- Display tasks in a list
-- Delete tasks
+- Task management capabilities including adding, listing, and deleting tasks.
 - Fetch tasks from a PostgreSQL database
 - REST API communication using Axios
+- User authentication and registration
+- 
 
 ## Technologies
-React
-Vite
-JavaScript
-CSS
-ESLint
-PostgreSQL
-Mocha
-Chai
-Axois
+React  
+Vite  
+JavaScript  
+CSS  
+ESLint  
+PostgreSQL  
+Mocha  
+Chai  
+Axois  
+JWT tokens and password hashing  
+Node.js with Express
 
 ## Run the app
 
