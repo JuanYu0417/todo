@@ -7,7 +7,6 @@ A simple Todo application built with React and Vite.
 - Fetch tasks from a PostgreSQL database
 - REST API communication using Axios
 - User authentication and registration
-- 
 
 ## Technologies
 React  
